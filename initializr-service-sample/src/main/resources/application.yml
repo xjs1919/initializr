@@ -1,10 +1,379 @@
+logging:
+  level:
+    root: INFO
+    io.spring.initializr: DEBUG
+
 initializr:
   dependencies:
+    - name: mamcharge
+      content:
+        - name: cache-client
+          id: com.mamcharge.cache:cache-client:1.0
+          description: 公共技术封装的redis客户端工具类
+        - name: mongodb-plus
+          id: com.mamcharge.techc:spring-data-mongodb-plus:1.0.0
+          description: 公共技术封装的mongodb客户端工具类
+        - name: captcha-sdk
+          id: com.mamcharge:captcha-sdk:1.0.0
+          description: 公共技术封装的滑块验证码sdk
     - name: Web
       content:
         - name: Web
           id: web
           description: Servlet web application with Spring MVC and Tomcat
+        - id: webflux
+          name: Spring Reactive Web
+          description: Build reactive web applications with Spring WebFlux and Netty
+        - id: data-rest
+          name: Rest Repositories
+          description: Exposing Spring Data repositories over REST via Spring Data REST.
+        - id: session
+          name: Spring Session
+          description: Provides an API and implementations for managing user session information.
+        - id: data-rest-hal
+          name: Rest Repositories HAL Browser
+          description: Browsing Spring Data REST repositories in your browser.
+        - id: hateoas
+          name: Spring HATEOAS
+          description: Eases the creation of RESTful APIs that follow the HATEOAS principle when working with Spring / Spring MVC.
+        - id: web-services
+          name: Spring Web Services
+          description: Facilitates contract-first SOAP development. Allows for the creation of flexible web services using one of the many ways to manipulate XML payloads.
+        - id: jersey
+          name: Jersey
+          description: Framework for developing RESTful Web Services in Java that provides support for JAX-RS APIs.
+        - id: vaadin
+          name: Vaadin
+          description: Java framework for building rich client apps based on Web components.
+    - name: Template Engines
+      content:
+        - id: thymeleaf
+          name: Thymeleaf
+          description: A modern server-side Java template engine for both web and standalone environments. Allows HTML to be correctly displayed in browsers and as static prototypes.
+        - id: freemarker
+          name: Apache Freemarker
+          description: Java library to generate text output (HTML web pages e-mails configuration files source code etc.) based on templates and changing data.
+        - id: mustache
+          name: Mustache
+          description: Logic-less Templates. There are no if statements else clauses or for loops. Instead there are only tags.
+        - id: groovy-templates
+          name: Groovy Templates
+          description: Groovy templating engine.
+    - name: Developer Tools
+      content:
+        - id: devtools
+          name: Spring Boot DevTools
+          description: Provides fast application restarts, LiveReload, and configurations for enhanced development experience.
+        - id: lombok
+          name: Lombok
+          description: Java annotation library which helps to reduce boilerplate code
+    - name: SQL
+      content:
+        - id: jdbc
+          name: JDBC API
+          description: Database Connectivity API that defines how a client may connect and query a database.
+        - id: data-jpa
+          name: Spring Data JPA
+          description: Persist data in SQL stores with Java Persistence API using Spring Data and Hibernate.
+        - id: data-jdbc
+          name: Spring Data JDBC
+          description: Persist data in SQL stores with plain JDBC using Spring Data.
+        - id: data-r2dbc
+          name: Spring Data R2DBC [Experimental]
+          description: Provides Reactive Relational Database Connectivity to persist data in SQL stores using Spring Data in reactive applications.
+        - id: mybatis
+          name: MyBatis Framework
+          description: Persistence framework with support for custom SQL, stored procedures and advanced mappings. MyBatis couples objects with stored procedures or SQL statements using a XML descriptor or annotations.
+        - id: liquibase
+          name: Liquibase Migration
+          description: Liquibase database migration and source control library.
+        - id: flyway
+          name: Flyway Migration
+          description: Version control for your database so you can migrate from any version (incl. an empty database) to the latest version of the schema.
+        - id: jooq
+          name: JOOQ Access Layer
+          description: Generate Java code from your database and build type safe SQL queries through a fluent API.
+        - id: db2
+          name: IBM DB2 Driver
+          description: A JDBC driver that provides access to IBM DB2
+        - id: derby
+          name: Apache Derby Database
+          description: An open source relational database implemented entirely in Java
+        - id: h2
+          name: H2 Database
+          description: Provides a fast in-memory database that supports JDBC API and R2DBC access, with a small (2mb) footprint. Supports embedded and server modes as well as a browser based console application.
+        - id: hsql
+          name: HyperSQL Database
+          description: Lightweight 100% Java SQL Database Engine
+        - id: sqlserver
+          name: MS SQL Server Driver
+          description: A JDBC and R2DBC driver that provides access to Microsoft SQL Server and Azure SQL Database from any Java application
+        - id: mysql
+          name: MySQL Driver
+          description: MySQL JDBC and R2DBC driver.
+        - id: oracle
+          name: Oracle Driver
+          description: A JDBC driver that provides access to Oracle.
+        - id: postgresql
+          name: PostgreSQL Driver
+          description: A JDBC and R2DBC driver that allows Java programs to connect to a PostgreSQL database using standard, database independent Java code.
+    - name: NoSQL
+      content:
+        - id: data-redis
+          name: Spring Data Redis (Access+Driver)
+          description: Advanced and thread-safe Java Redis client for synchronous, asynchronous, and reactive usage. Supports Cluster, Sentinel, Pipelining, Auto-Reconnect, Codecs and much more.
+        - id: data-redis-reactive
+          name: Spring Data Reactive Redis
+          description: Access Redis key-value data stores in a reactive fashion with Spring Data Redis.
+        - id: data-mongodb
+          name: Spring Data MongoDB
+          description: Store data in flexible, JSON-like documents, meaning fields can vary from document to document and data structure can be changed over time.
+        - id: data-mongodb-reactive
+          name: Spring Data Reactive MongoDB
+          description: Provides asynchronous stream processing with non-blocking back pressure for MongoDB.
+        - id: data-elasticsearch
+          name: Spring Data Elasticsearch (Access+Driver)
+          description: A distributed, RESTful search and analytics engine with Spring Data Elasticsearch.
+        - id: data-solr
+          name: Spring Data for Apache Solr
+          description: Apache Solr is an open source enterprise search platform built on Apache Lucene.
+        - id: data-cassandra
+          name: Spring Data for Apache Cassandra
+          description: A free and open-source, distributed, NoSQL database management system that offers high-scalability and high-performance.
+        - id: data-cassandra-reactive
+          name: Spring Data Reactive for Apache Cassandra
+          description: Access Cassandra NoSQL Database in a reactive fashion.
+        - id: geode
+          name: Spring for Apache Geode
+          description: Apache Geode is a data management platform that helps users build real-time, highly concurrent, highly performant and reliable Spring Boot applications at scale.
+        - id: data-couchbase
+          name: Spring Data Couchbase
+          description: NoSQL document-oriented database that offers in memory-first architecture, geo-distributed deployments, and workload isolation.
+        - id: data-couchbase-reactive
+          name: Spring Data Reactive Couchbase
+          description: Access Couchbase NoSQL database in a reactive fashion with Spring Data Couchbase.
+        - id: data-neo4j
+          name: Spring Data Neo4j
+          description: An open source NoSQL database that stores data structured as graphs consisting of nodes, connected by relationships.
+    - name: Messaging
+      content:
+        - id: integration
+          name: Spring Integration
+          description: Adds support for Enterprise Integration Patterns. Enables lightweight messaging and supports integration with external systems via declarative adapters.
+        - id: amqp
+          name: Spring for RabbitMQ
+          description: Gives your applications a common platform to send and receive messages and your messages a safe place to live until received.
+        - id: kafka
+          name: Spring for Apache Kafka
+          description: Publish subscribe store and process streams of records.
+        - id: kafka-streams
+          name: Spring for Apache Kafka Streams
+          description: Building stream processing applications with Apache Kafka Streams.
+        - id: activemq
+          name: Spring for Apache ActiveMQ 5
+          description: Spring JMS support with Apache ActiveMQ 'Classic'.
+        - id: artemis
+          name: Spring for Apache ActiveMQ Artemis
+          description: Spring JMS support with Apache ActiveMQ Artemis.
+        - id: websocket
+          name: WebSocket
+          description: Build WebSocket applications with SockJS and STOMP.
+        - id: rsocket
+          name: RSocket
+          description: RSocket.io applications with Spring Messaging and Netty.
+          versionRange: 2.2.0.M2
+        - id: camel
+          name: Apache Camel
+          description: Apache Camel lets you create the Enterprise Integration Patterns to implement routing and mediation rules a Java based Domain Specific Language via Spring.
+          versionRange: '[2.0.0.M12.2.0.M1)'
+        - id: solace
+          name: Solace PubSub+
+          description: Connect to a Solace PubSub+ Advanced Event Broker using the Solace Java API to send and receive messages.
+          versionRange: 2.1.0.RELEASE
+
+    - name: I/O
+      content:
+        - id: batch
+          name: Spring Batch
+          description: Batch applications with transactions retry/skip and chunk based processing.
+        - id: mail
+          name: Java Mail Sender
+          description: Send email using Java Mail and Spring Framework's JavaMailSender.
+        - id: quartz
+          name: Quartz Scheduler
+          description: Schedule jobs using Quartz.
+        - id: cache
+          name: Spring cache abstraction
+          description: Provides cache-related operations such as the ability to update the content of the cache but does not provide the actual data store.
+    - name: Ops
+      content:
+        - id: actuator
+          name: Spring Boot Actuator
+          description: Supports built in (or custom) endpoints that let you monitor and manage your application - such as application health metrics sessions etc.
+        - id: codecentric-spring-boot-admin-client
+          name: Spring Boot Admin (Client)
+          description: Required for your application to register with a Spring Boot Admin Server instance.
+          versionRange: '[2.0.0.RELEASE2.2.0.M1)'
+        - id: codecentric-spring-boot-admin-server
+          name: Spring Boot Admin (Server)
+          description: A community project to manage and monitor your Spring Boot applications. Provides a UI on top of the Spring Boot Actuator endpoints.
+          versionRange: '[2.0.0.RELEASE2.2.0.M1)'
+    - name: Testing
+      content:
+        - id: restdocs
+          name: Spring REST Docs
+          description: Document RESTful services by combining hand-written with Asciidoctor and auto-generated snippets produced with Spring MVC Test.
+        - id: cloud-contract-verifier
+          name: Contract Verifier
+          description: Moves TDD to the level of software architecture by enabling Consumer Driven Contract (CDC) development.
+        - id: cloud-contract-stub-runner
+          name: Contract Stub Runner
+          description: Stub Runner for HTTP/Messaging based communication. Allows creating WireMock stubs from RestDocs tests.
+        - id: unboundid-ldap
+          name: Embedded LDAP Server
+          description: Provides a platform neutral way for running a LDAP server in unit tests.
+        - id: flapdoodle-mongo
+          name: Embedded MongoDB Database
+          description: Provides a platform neutral way for running MongoDB in unit tests.
+    - name: Spring Cloud
+      content:
+        - id: cloud-starter
+          name: Cloud Bootstrap
+          description: Non-specific Spring Cloud features unrelated to external libraries or integrations (e.g. Bootstrap context and @RefreshScope).
+        - id: cloud-function
+          name: Function
+          description: Promotes the implementation of business logic via functions and supports a uniform programming model across serverless providers as well as the ability to run standalone (locally or in a PaaS).
+        - id: cloud-task
+          name: Task
+          description: Allows a user to develop and run short lived microservices using Spring Cloud. Run them locally in the cloud and on Spring Cloud Data Flow.
+    - name: Spring Cloud Security
+      content:
+        - id: cloud-security
+          name: Cloud Security
+          description: A declarative model which can be heavily configured externally (or centrally) lends itself to the implementation of large systems of co-operating remote components usually with a central indentity management service.
+        - id: cloud-oauth2
+          name: Cloud OAuth2
+          description: OAuth2 and distributed application patterns with spring-cloud-security.
+    - name: Spring Cloud Tools
+      content:
+        - id: cloud-connectors
+          name: Cloud Connectors
+          description: Simplifies the process of connecting to services and gaining operating environment awareness in cloud platforms such as Cloud Foundry and Heroku.
+        - id: open-service-broker
+          name: Open Service Broker
+          description: Framework for building Spring Boot apps that implement the Open Service Broker API which can deliver services to applications running within cloud native platforms such as Cloud Foundry Kubernetes and OpenShift.
+    - name: Spring Cloud Config
+      content:
+        - id: cloud-config-client
+          name: Config Client
+          description: Client that connects to a Spring Cloud Config Server to fetch the application's configuration.
+        - id: cloud-config-server
+          name: Config Server
+          description: Central management for configuration via Git SVN or HashiCorp Vault.
+        - id: cloud-starter-vault-config
+          name: Vault Configuration
+          description: Provides client-side support for externalized configuration in a distributed system. Using HashiCorp's Vault you have a central place to manage external secret properties for applications across all environments.
+        - id: cloud-starter-zookeeper-config
+          name: Apache Zookeeper Configuration
+          description: Enable and configure common patterns inside your application and build large distributed systems with Apache Zookeeper based components. The provided patterns include Service Discovery and Configuration.
+        - id: cloud-starter-consul-config
+          name: Consul Configuration
+          description: Enable and configure the common patterns inside your application and build large distributed systems with Hashicorp’s Consul. The patterns provided include Service Discovery Distributed Configuration and Control Bus.
+    - name: Spring Cloud Discovery
+      content:
+        - id: cloud-eureka
+          name: Eureka Discovery Client
+          description: a REST based service for locating services for the purpose of load balancing and failover of middle-tier servers.
+        - id: cloud-eureka-server
+          name: Eureka Server
+          description: spring-cloud-netflix Eureka Server.
+        - id: cloud-starter-zookeeper-discovery
+          name: Apache Zookeeper Discovery
+          description: Service discovery with Apache Zookeeper.
+        - id: cloud-cloudfoundry-discovery
+          name: Cloud Foundry Discovery
+          description: Service discovery with Cloud Foundry.
+        - id: cloud-starter-consul-discovery
+          name: Consul Discovery
+          description: Service discovery with Hashicorp Consul.
+    - name: Spring Cloud Routing
+      content:
+        - id: cloud-zuul
+          name: Zuul
+          description: Intelligent and programmable routing with Spring Cloud Netflix Zuul.
+        - id: cloud-gateway
+          name: Gateway
+          description: Provides a simple yet effective way to route to APIs and provide cross cutting concerns to them such as security monitoring/metrics and resiliency.
+        - id: cloud-ribbon
+          name: Ribbon
+          description: Client side load balancing with Spring Cloud Netflix and Ribbon.
+        - id: cloud-feign
+          name: OpenFeign
+          description: Declarative REST Client. OpenFeign creates a dynamic implementation of an interface decorated with JAX-RS or Spring MVC annotations.
+    - name: Spring Cloud Circuit Breaker
+      content:
+        - id: cloud-hystrix
+          name: Hystrix
+          description: Circuit breaker with Spring Cloud Netflix Hystrix.
+        - id: cloud-hystrix-dashboard
+          name: Hystrix Dashboard
+          description: Circuit breaker dashboard with Spring Cloud Netflix Hystrix.
+        - id: cloud-turbine
+          name: Turbine
+          description: Circuit breaker metric aggregation using spring-cloud-netflix with Turbine and server-sent events.
+        - id: cloud-turbine-stream
+          name: Turbine Stream
+          description: Circuit breaker metric aggregation using spring-cloud-netflix with Turbine and Spring Cloud Stream (requires a binder e.g. Apache Kafka or RabbitMQ).
+    - name: Spring Cloud Tracing
+      content:
+        - id: cloud-starter-sleuth
+          name: Sleuth
+          description: Distributed tracing via logs with Spring Cloud Sleuth.
+        - id: cloud-starter-zipkin
+          name: Zipkin Client
+          description: Distributed tracing with an existing Zipkin installation and Spring Cloud Sleuth Zipkin.
+    - name: Spring Cloud Messaging
+      content:
+        - id: cloud-bus
+          name: Cloud Bus
+          description: Links nodes of a distributed system with a lightweight message broker which can used to broadcast state changes or other management instructions (requires a binder e.g. Apache Kafka or RabbitMQ).
+        - id: cloud-stream
+          name: Cloud Stream
+          description: Framework for building highly scalable event-driven microservices connected with shared messaging systems (requires a binder e.g. Apache Kafka or RabbitMQ).
+        - id: reactive-cloud-stream
+          name: Reactive Cloud Stream
+          description: Reactive messaging microservices with Spring Cloud Stream (requires a binder e.g. Apache Kafka or RabbitMQ).
+          versionRange: '[2.0.0.RELEASE2.2.0.M1)'
+    - name: Pivotal Cloud Foundry
+      content:
+        - id: scs-config-client
+          name: Config Client (PCF)
+          description: Config client on Pivotal Cloud Foundry.
+        - id: scs-service-registry
+          name: Service Registry (PCF)
+          description: Eureka service discovery client on Pivotal Cloud Foundry.
+        - id: scs-circuit-breaker
+          name: Circuit Breaker (PCF)
+          description: Hystrix circuit breaker client on Pivotal Cloud Foundry.
+    - name: Security
+      content:
+        - id: security
+          name: Spring Security
+          description: Highly customizable authentication and access-control framework for Spring applications.
+        - id: oauth2-client
+          name: OAuth2 Client
+          description: Spring Boot integration for Spring Security's OAuth2/OpenID Connect client features.
+        - id: oauth2-resource-server
+          name: OAuth2 Resource Server
+          description: Spring Boot integration for Spring Security's OAuth2 resource server features.
+          versionRange: 2.1.0.M2
+        - id: data-ldap
+          name: Spring LDAP
+          description: Makes it easier to build Spring based applications that use the Lightweight Directory Access Protocol.
+        - id: okta
+          name: Okta
+          description: Okta specific configuration for Spring Security/Spring Boot OAuth2 features. Enable your Spring Boot application to work with Okta via OAuth 2.0/OIDC.
+          versionRange: 2.1.2.RELEASE
   types:
     - name: Maven Project
       id: maven-project
@@ -14,6 +383,14 @@ initializr:
         format: project
       default: true
       action: /starter.zip
+
+    - name: Maven POM
+      id: maven-build
+      description: Generate a Maven pom.xml
+      tags:
+        build: maven
+        format: build
+      action: /pom.xml
     - name: Gradle Project
       id: gradle-project
       description: Generate a Gradle based project archive
@@ -22,6 +399,15 @@ initializr:
         format: project
       default: false
       action: /starter.zip
+    - name: Gradle Config
+      id: gradle-build
+      description: Generate a Gradle build file
+      tags:
+        build: gradle
+        format: build
+      default: false
+      action: /build.gradle
+
   packagings:
     - name: Jar
       id: jar

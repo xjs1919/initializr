@@ -30,9 +30,14 @@ import org.springframework.context.annotation.Bean;
 @ProjectGenerationConfiguration
 public class ApplicationConfigurationProjectGenerationConfiguration {
 
+//	@Bean
+//	public ApplicationPropertiesContributor applicationPropertiesContributor() {
+//		return new ApplicationPropertiesContributor();
+//	}
+
 	@Bean
-	public ApplicationPropertiesContributor applicationPropertiesContributor() {
-		return new ApplicationPropertiesContributor();
+	public ApplicationYmlContributor applicationYmlContributor(Build build, InitializrMetadata metadata){
+		return new ApplicationYmlContributor(build, metadata);
 	}
 
 	@Bean

@@ -89,6 +89,7 @@
 			</properties>
 			<build>
 				<plugins>
+					<!--
 					<plugin>
 						<groupId>io.spring.javaformat</groupId>
 						<artifactId>spring-javaformat-maven-plugin</artifactId>
@@ -160,7 +161,7 @@
 								<inherited>false</inherited>
 							</execution>
 						</executions>
-					</plugin>
+					</plugin>-->
 				</plugins>
 			</build>
 		</profile>

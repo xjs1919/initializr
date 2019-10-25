@@ -1,0 +1,14 @@
+#文档： https://www.yuque.com/mamcharge_knowledgebase/iiubck/vov16v
+mam:
+  mongodb:
+    options:
+      enable-write-class: false #是否写入类型
+      application-name: test # 应用名称，方便mongo-server端日志记录区分（未测）
+      heartbeat-frequency: 10000 # 心跳间隔
+    datasources:
+      - uri: mongodb://127.0.0.1:20000/test # 多数据源【1】-地址
+        template-name: test-tpl # mongoTemplate bean别名
+        prefix: test # 数据源名称，默认会注册两个bean: test-mongoClient(客户端),
+        # test-mongoTemplate(mongoTemplate)
+      - uri: mongodb://127.0.0.1:20000/itest # 多数据源【2】-地址
+        prefix: second # 数据源名称
