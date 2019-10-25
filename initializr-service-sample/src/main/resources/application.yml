@@ -10,12 +10,30 @@ initializr:
         - name: cache-client
           id: com.mamcharge.cache:cache-client:1.0
           description: 公共技术封装的redis客户端工具类
+          links:
+            - href: https://www.yuque.com/mamcharge_knowledgebase/iiubck/mmafpy
+              description: 使用手册
+              rel:
         - name: mongodb-plus
           id: com.mamcharge.techc:spring-data-mongodb-plus:1.0.0
           description: 公共技术封装的mongodb客户端工具类
+          links:
+            - href: https://www.yuque.com/mamcharge_knowledgebase/iiubck/vov16v
+              description: 使用手册
+              rel:
         - name: captcha-sdk
           id: com.mamcharge:captcha-sdk:1.0.0
           description: 公共技术封装的滑块验证码sdk
+          links:
+            - href: https://www.yuque.com/mamcharge_knowledgebase/iiubck/pbc7wg
+              description: 接口文档
+              rel:
+            - href: https://www.yuque.com/mamcharge_knowledgebase/iiubck/flg6ds
+              description: 服务端SDK接入文档
+              rel:
+            - href: https://www.yuque.com/mamcharge_knowledgebase/iiubck/yfpdk1
+              description: 前端JS-SDK接入文档
+              rel:
     - name: Web
       content:
         - name: Web
