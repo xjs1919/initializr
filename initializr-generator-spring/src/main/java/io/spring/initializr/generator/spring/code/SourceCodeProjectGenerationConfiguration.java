@@ -18,6 +18,7 @@ package io.spring.initializr.generator.spring.code;
 
 import io.spring.initializr.generator.condition.ConditionalOnPackaging;
 import io.spring.initializr.generator.condition.ConditionalOnPlatformVersion;
+import io.spring.initializr.generator.condition.ConditionalOnRequestedDependency;
 import io.spring.initializr.generator.language.Annotation;
 import io.spring.initializr.generator.language.TypeDeclaration;
 import io.spring.initializr.generator.packaging.war.WarPackaging;
@@ -40,6 +41,20 @@ public class SourceCodeProjectGenerationConfiguration {
 	public MainApplicationTypeCustomizer<TypeDeclaration> springBootApplicationAnnotator() {
 		return (typeDeclaration) -> typeDeclaration
 				.annotate(Annotation.name("org.springframework.boot.autoconfigure.SpringBootApplication"));
+	}
+
+	@Bean
+	@ConditionalOnRequestedDependency("mongodb-plus")
+	public MainApplicationTypeCustomizer<TypeDeclaration> mamMongoAutoConfigAnnotator() {
+		return (typeDeclaration) -> typeDeclaration
+				.annotate(Annotation.name("com.mamcharger.techc.mongo.autoconfig.EnableMamMongoAutoConfiguration"));
+	}
+
+	@Bean
+	@ConditionalOnRequestedDependency("mongodb-plus")
+	public MainApplicationTypeCustomizer<TypeDeclaration> mamMongoRepositoryAnnotator() {
+		return (typeDeclaration) -> typeDeclaration
+				.annotate(Annotation.name("com.mamcharger.techc.mongo.autoconfig.repository.EnableMamMongoRepository"));
 	}
 
 	@Bean
