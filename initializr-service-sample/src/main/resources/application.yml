@@ -450,4 +450,8 @@ initializr:
       id: groovy
       default: false
   group-id:
-    value: org.acme
+    value: com.mamcharge
+  artifact-id:
+    value: demo
+  description:
+    value: Demo project for Mamcharge
