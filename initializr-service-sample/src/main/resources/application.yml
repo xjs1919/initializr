@@ -85,30 +85,30 @@ initializr:
         - id: vaadin
           name: Vaadin
           description: Java framework for building rich client apps based on Web components.
-    - name: Template Engines
-      content:
-        - id: thymeleaf
-          name: Thymeleaf
-          description: A modern server-side Java template engine for both web and standalone environments. Allows HTML to be correctly displayed in browsers and as static prototypes.
-        - id: freemarker
-          name: Apache Freemarker
-          description: Java library to generate text output (HTML web pages e-mails configuration files source code etc.) based on templates and changing data.
-        - id: mustache
-          name: Mustache
-          description: Logic-less Templates. There are no if statements else clauses or for loops. Instead there are only tags.
-        - id: groovy-templates
-          name: Groovy Templates
-          description: Groovy templating engine.
-    - name: Developer Tools
-      content:
-        - id: devtools
-          name: Spring Boot DevTools
-          description: Provides fast application restarts, LiveReload, and configurations for enhanced development experience.
-        - id: lombok
-          name: Lombok
-          description: Java annotation library which helps to reduce boilerplate code
     - name: SQL
       content:
+        - name: "baomidou:3.2.0"
+          id: "baomidou:3.2.0"
+          groupId: com.baomidou
+          artifactId: mybatis-plus-boot-starter
+          version: 3.2.0
+          description: MyBatis的增强工具MyBatis-Plus
+          links:
+            - href: https://mp.baomidou.com/guide/
+              description: 快速入门
+              rel:
+        - name: "baomidou代码生成器:3.2.0"
+          id: "mybatis-plus-generator:3.2.0"
+          groupId: com.baomidou
+          artifactId: mybatis-plus-generator
+          version: 3.2.0
+          description: baomidou代码生成器
+        - name: "baomidou代码生成器模板引擎:2.1"
+          id: "velocity-engine-core:2.1"
+          groupId: org.apache.velocity
+          artifactId: velocity-engine-core
+          version: 2.1
+          description: baomidou代码生成器模板引擎
         - id: jdbc
           name: JDBC API
           description: Database Connectivity API that defines how a client may connect and query a database.
@@ -195,6 +195,28 @@ initializr:
         - id: data-neo4j
           name: Spring Data Neo4j
           description: An open source NoSQL database that stores data structured as graphs consisting of nodes, connected by relationships.
+    - name: Template Engines
+      content:
+        - id: thymeleaf
+          name: Thymeleaf
+          description: A modern server-side Java template engine for both web and standalone environments. Allows HTML to be correctly displayed in browsers and as static prototypes.
+        - id: freemarker
+          name: Apache Freemarker
+          description: Java library to generate text output (HTML web pages e-mails configuration files source code etc.) based on templates and changing data.
+        - id: mustache
+          name: Mustache
+          description: Logic-less Templates. There are no if statements else clauses or for loops. Instead there are only tags.
+        - id: groovy-templates
+          name: Groovy Templates
+          description: Groovy templating engine.
+    - name: Developer Tools
+      content:
+        - id: devtools
+          name: Spring Boot DevTools
+          description: Provides fast application restarts, LiveReload, and configurations for enhanced development experience.
+        - id: lombok
+          name: Lombok
+          description: Java annotation library which helps to reduce boilerplate code
     - name: Messaging
       content:
         - id: integration
