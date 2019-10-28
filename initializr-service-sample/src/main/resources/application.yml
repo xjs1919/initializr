@@ -7,8 +7,21 @@ initializr:
   dependencies:
     - name: mamcharge
       content:
-        - name: cache-client
-          id: cache-client
+        - name: "apollo-client:1.5.0-SNAPSHOT"
+          id: "apollo-client:1.5.0-SNAPSHOT"
+          groupId: com.ctrip.framework.apollo
+          artifactId: apollo-client
+          version: 1.5.0-SNAPSHOT
+          description: 公共技术封装的apollo配置中心
+          links:
+          - href: https://www.yuque.com/mamcharge_knowledgebase/iiubck/bfywfk
+            description: Apollo配置中心使用文档
+            rel:
+          - href: https://www.yuque.com/mamcharge_knowledgebase/ognmac/ov1pz6
+            description: Apollo配置中心部署文档
+            rel:
+        - name: "cache-client:1.0"
+          id: "cache-client:1.0"
           groupId: com.mamcharge.cache
           artifactId: cache-client
           version: 1.0
@@ -17,8 +30,8 @@ initializr:
             - href: https://www.yuque.com/mamcharge_knowledgebase/iiubck/mmafpy
               description: 使用手册
               rel:
-        - name: mongodb-plus
-          id: mongodb-plus
+        - name: "mongodb-plus:1.0.0"
+          id: "mongodb-plus:1.0.0"
           groupId: com.mamcharge.techc
           artifactId: spring-data-mongodb-plus
           version: 1.0.0
@@ -27,8 +40,8 @@ initializr:
             - href: https://www.yuque.com/mamcharge_knowledgebase/iiubck/vov16v
               description: 使用手册
               rel:
-        - name: captcha-sdk
-          id: captcha-sdk
+        - name: "captcha-sdk:1.0.0"
+          id: "captcha-sdk:1.0.0"
           description: 公共技术封装的滑块验证码sdk
           groupId: com.mamcharge
           artifactId: captcha-sdk

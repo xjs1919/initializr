@@ -88,7 +88,7 @@ public class ApplicationYmlContributor implements ProjectContributor {
 			return false;
 		}
 		for(Dependency d: ds){
-			if(d.getArtifactId().indexOf(artifactId)>=0){
+			if(d.getId().indexOf(artifactId)>=0){
 				return true;
 			}
 		}

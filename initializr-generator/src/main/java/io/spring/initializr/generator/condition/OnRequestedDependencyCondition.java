@@ -16,10 +16,13 @@
 
 package io.spring.initializr.generator.condition;
 
+import io.spring.initializr.generator.buildsystem.Dependency;
 import io.spring.initializr.generator.project.ProjectDescription;
 
 import org.springframework.context.annotation.ConditionContext;
 import org.springframework.core.type.AnnotatedTypeMetadata;
+
+import java.util.Map;
 
 /**
  * {@link ProjectGenerationCondition} implementation for
@@ -32,9 +35,17 @@ class OnRequestedDependencyCondition extends ProjectGenerationCondition {
 	@Override
 	protected boolean matches(ProjectDescription description, ConditionContext context,
 			AnnotatedTypeMetadata metadata) {
-		String id = (String) metadata.getAnnotationAttributes(ConditionalOnRequestedDependency.class.getName())
+		String annotatedId = (String) metadata.getAnnotationAttributes(ConditionalOnRequestedDependency.class.getName())
 				.get("value");
-		return description.getRequestedDependencies().containsKey(id);
+		// return description.getRequestedDependencies().containsKey(id);
+		Map<String, Dependency> dependencyMap = description.getRequestedDependencies();
+		for(Map.Entry<String, Dependency> entry : dependencyMap.entrySet()){
+			String realId = entry.getKey();
+			if(realId.indexOf(annotatedId) >= 0){
+				return true;
+			}
+		}
+		return false;
 	}
 
 }
