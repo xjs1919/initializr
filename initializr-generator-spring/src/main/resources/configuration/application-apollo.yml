@@ -1,3 +1,12 @@
+apollo:
+  bootstrap:
+    enabled: true
+    namespaces: application #如果有多个，用逗号拼接
+
+app:
+  id: # TODO
+  apiKey: # TODO
+
 spring:
   application:
     name: ${project.name}

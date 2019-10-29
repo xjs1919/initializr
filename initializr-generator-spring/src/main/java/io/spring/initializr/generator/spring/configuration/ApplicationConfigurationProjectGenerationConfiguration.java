@@ -40,6 +40,12 @@ public class ApplicationConfigurationProjectGenerationConfiguration {
 		return new ApplicationYmlContributor(build, metadata);
 	}
 
+
+	@Bean
+	public DockerfileContributor dockerfileContributor(){
+		return new DockerfileContributor();
+	}
+
 	@Bean
 	public WebFoldersContributor webFoldersContributor(Build build, InitializrMetadata metadata) {
 		return new WebFoldersContributor(build, metadata);

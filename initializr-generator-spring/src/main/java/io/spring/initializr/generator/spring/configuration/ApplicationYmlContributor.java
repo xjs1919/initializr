@@ -48,23 +48,18 @@ public class ApplicationYmlContributor implements ProjectContributor {
 	public void contribute(Path projectRoot) throws IOException {
 		List<Dependency> mamDependencies = this.buildMetadataResolver.dependencies(build).filter((dependency)->{
 			String groupId = dependency.getGroupId();
-			if(groupId.startsWith("com.mamcharge")){
+			if(groupId.startsWith("com.mamcharge")|| groupId.startsWith("com.ctrip.framework.apollo")){
 				return true;
 			}else{
 				return false;
 			}
 		}).collect(Collectors.toList());
-		boolean hasMongo = hasMongo(mamDependencies);
-		boolean hasRedis = hasRedis(mamDependencies);
-		String configurationYml = "application.yml";
-		if(hasMongo && hasRedis){
-			configurationYml = "application-mongo-redis.yml";
-		}else if(hasMongo && !hasRedis){
-			configurationYml = "application-mongo.yml";
-		}else if(!hasMongo && hasRedis){
-			configurationYml = "application-redis.yml";
+		boolean hasApollo = hasApollo(mamDependencies);
+		String configurationYml = null;
+		if(hasApollo){
+			configurationYml = "application-apollo.yml";
 		}else{
-
+			configurationYml = "application.yml";
 		}
 		Path output = projectRoot.resolve("src/main/resources/application.yml");
 		if (!Files.exists(output)) {
@@ -81,6 +76,9 @@ public class ApplicationYmlContributor implements ProjectContributor {
 
 	private boolean hasRedis(List<Dependency> ds ){
 		return hasDependecy(ds,"cache-client");
+	}
+	private boolean hasApollo(List<Dependency> ds ){
+		return hasDependecy(ds,"apollo-client");
 	}
 
 	private boolean hasDependecy(List<Dependency> ds, String artifactId){

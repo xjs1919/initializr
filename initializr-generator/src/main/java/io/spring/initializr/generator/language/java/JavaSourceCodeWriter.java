@@ -97,7 +97,21 @@ public class JavaSourceCodeWriter implements SourceCodeWriter<JavaSourceCode> {
 
 	private void writeTo(SourceStructure structure, JavaCompilationUnit compilationUnit) throws IOException {
 		Path output = structure.createSourceFile(compilationUnit.getPackageName(), compilationUnit.getName());
-		Files.createDirectories(output.getParent());
+		Path parentPath = output.getParent();
+		Files.createDirectories(parentPath);
+		//创建mamcharge自己的目录
+		Path clientPath = parentPath.resolve("client");
+		Files.createDirectories(clientPath);
+		Path restPath = parentPath.resolve("rest");
+		Files.createDirectories(restPath);
+		Path domainPath = parentPath.resolve("domain");
+		Files.createDirectories(domainPath);
+		Path repositoryPath = parentPath.resolve("repository");
+		Files.createDirectories(repositoryPath);
+		Path servicePath = parentPath.resolve("service");
+		Files.createDirectories(servicePath);
+		Path serviceImplPath = servicePath.resolve("impl");
+		Files.createDirectories(serviceImplPath);
 		try (IndentingWriter writer = this.indentingWriterFactory.createIndentingWriter("java",
 				Files.newBufferedWriter(output))) {
 			writer.println("package " + compilationUnit.getPackageName() + ";");
