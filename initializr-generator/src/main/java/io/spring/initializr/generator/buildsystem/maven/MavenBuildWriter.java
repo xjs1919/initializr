@@ -16,10 +16,7 @@
 
 package io.spring.initializr.generator.buildsystem.maven;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.function.BiConsumer;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -65,6 +62,7 @@ public class MavenBuildWriter {
 			writeProperties(writer, build.properties());
 			writeDependencies(writer, build);
 			writeDependencyManagement(writer, build);
+			writeProfiles(writer, build);
 			writeBuild(writer, build);
 			writeRepositories(writer, build);
 		});
@@ -227,6 +225,34 @@ public class MavenBuildWriter {
 		writer.println();
 		writeElement(writer, "dependencyManagement",
 				() -> writeElement(writer, "dependencies", () -> writeCollection(writer, boms, this::writeBom)));
+	}
+
+	private void writeProfiles(IndentingWriter writer,MavenBuild build){
+		MavenProfileContainer profilesContainer = build.profiles();
+		Map<String, MavenProfile> profiles = profilesContainer.getProfiles();
+		if(profiles.isEmpty()){
+			return;
+		}
+		writer.println();
+		writeElement(writer, "profiles",()->{
+			for(Map.Entry<String, MavenProfile> entry : profiles.entrySet()){
+			    String id = entry.getKey();
+				MavenProfile profile = entry.getValue();
+				writeElement(writer, "profile", ()->{
+					writeSingleElement(writer, "id", id);
+					writeElement(writer, "properties", ()->{
+						List<MavenProfile.Property>  properties = profile.getProperties();
+						for(MavenProfile.Property property : properties){
+							writeSingleElement(writer, property.getName(), property.getValue());
+						}
+					});
+					writeElement(writer, "activation", ()->{
+						boolean activeByDefault = profile.isActiveByDefault();
+						writeSingleElement(writer, "activeByDefault", ""+activeByDefault);
+					});
+				});
+			}
+		});
 	}
 
 	private void writeBom(IndentingWriter writer, BillOfMaterials bom) {
