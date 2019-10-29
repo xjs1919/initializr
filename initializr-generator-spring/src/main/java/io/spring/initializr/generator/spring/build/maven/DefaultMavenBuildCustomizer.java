@@ -17,6 +17,7 @@
 package io.spring.initializr.generator.spring.build.maven;
 
 import io.spring.initializr.generator.buildsystem.BillOfMaterials;
+import io.spring.initializr.generator.buildsystem.DependencyScope;
 import io.spring.initializr.generator.buildsystem.maven.MavenBuild;
 import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
@@ -47,6 +48,38 @@ public class DefaultMavenBuildCustomizer implements BuildCustomizer<MavenBuild> 
 		build.settings().name(this.description.getName()).description(this.description.getDescription());
 		build.properties().property("java.version", this.description.getLanguage().jvmVersion());
 		build.plugins().add("org.springframework.boot", "spring-boot-maven-plugin");
+		//添加自定义的properties
+		build.properties().property("log.name", "${project.name}");
+		build.properties().property("log.path", "/mnt/xvdc/java_jn/${project.name}/${hostName}");
+		build.properties().property("log.pattern", "%highlight{%d{yyyy-MM-dd HH:mm:ss} [%t] %c(line-%L) - %m%n}");
+		//docker build plugin
+		build.plugins().add("com.spotify", "docker-maven-plugin", (plugin) -> {
+			plugin.version("1.1.1");
+			plugin.configuration((builder)->{
+				builder.add("imageName", "<!--改成你自己的镜像名称 TODO-->");
+				builder.add("dockerDirectory", "${project.basedir}/src/main/docker");
+				builder.configure("resources",(builder2)->{
+					builder2.configure("resource", (builder3)->{
+						builder3.add("targetPath", "/");
+						builder3.add("directory", "${project.build.directory}");
+						builder3.add("include", "${project.build.finalName}.jar");
+					});
+				});
+			});
+		});
+		// maven resource plugin
+        build.plugins().add("org.apache.maven.plugins", "maven-resources-plugin", (plugin) -> {
+            plugin.configuration((builder)->{
+                builder.add("encoding", "UTF-8");
+                builder.add("useDefaultDelimiters", "true");
+            });
+        });
+        //resource
+		build.resources().add("src/main/resources", (builder)->{
+			builder.includes("**/*").filtering(true);
+		});
+		//
+		build.dependencies().add("actuator","org.springframework.boot", "spring-boot-starter-actuator", DependencyScope.COMPILE);
 
 		Maven maven = this.metadata.getConfiguration().getEnv().getMaven();
 		String springBootVersion = this.description.getPlatformVersion().toString();
