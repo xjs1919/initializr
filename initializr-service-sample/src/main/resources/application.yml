@@ -7,11 +7,11 @@ initializr:
   dependencies:
     - name: mamcharge
       content:
-        - name: "apollo-client:1.5.0-SNAPSHOT"
-          id: "apollo-client:1.5.0-SNAPSHOT"
+        - name: "apollo-client:1.5.1.MAM"
+          id: "apollo-client:1.5.1.MAM"
           groupId: com.ctrip.framework.apollo
           artifactId: apollo-client
-          version: 1.5.0-SNAPSHOT
+          version: 1.5.1.MAM
           description: 公共技术封装的apollo配置中心
           links:
           - href: https://www.yuque.com/mamcharge_knowledgebase/iiubck/bfywfk

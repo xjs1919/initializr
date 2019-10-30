@@ -17,7 +17,6 @@
 package io.spring.initializr.generator.spring.configuration;
 
 import io.spring.initializr.generator.buildsystem.Build;
-import io.spring.initializr.generator.project.ProjectGenerationConfiguration;
 import io.spring.initializr.generator.project.contributor.ProjectContributor;
 import io.spring.initializr.generator.spring.build.BuildMetadataResolver;
 import io.spring.initializr.metadata.Dependency;
@@ -70,13 +69,6 @@ public class ApplicationYmlContributor implements ProjectContributor {
 		FileCopyUtils.copy(resource.getInputStream(), Files.newOutputStream(output, StandardOpenOption.APPEND));
 	}
 
-	private boolean hasMongo(List<Dependency> ds ){
-		return hasDependecy(ds,"mongodb-plus");
-	}
-
-	private boolean hasRedis(List<Dependency> ds ){
-		return hasDependecy(ds,"cache-client");
-	}
 	private boolean hasApollo(List<Dependency> ds ){
 		return hasDependecy(ds,"apollo-client");
 	}

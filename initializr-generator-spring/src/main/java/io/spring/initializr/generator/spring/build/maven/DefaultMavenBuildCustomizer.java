@@ -19,7 +19,6 @@ package io.spring.initializr.generator.spring.build.maven;
 import io.spring.initializr.generator.buildsystem.BillOfMaterials;
 import io.spring.initializr.generator.buildsystem.DependencyScope;
 import io.spring.initializr.generator.buildsystem.maven.MavenBuild;
-import io.spring.initializr.generator.buildsystem.maven.MavenProfile;
 import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
 import io.spring.initializr.generator.version.VersionProperty;

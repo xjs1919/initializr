@@ -229,29 +229,28 @@ public class MavenBuildWriter {
 
 	private void writeProfiles(IndentingWriter writer,MavenBuild build){
 		MavenProfileContainer profilesContainer = build.profiles();
-		Map<String, MavenProfile.Builder> profiles = profilesContainer.getProfiles();
-		if(profiles.isEmpty()){
-			return;
-		}
+		if(profilesContainer.isEmpty()){
+		    return;
+        }
+        Stream<MavenProfile> profiles = profilesContainer.values();
 		writer.println();
 		writeElement(writer, "profiles",()->{
-			for(Map.Entry<String, MavenProfile.Builder> entry : profiles.entrySet()){
-			    String id = entry.getKey();
-                MavenProfile.Builder profileBuilder = entry.getValue();
-				writeElement(writer, "profile", ()->{
-					writeSingleElement(writer, "id", id);
-					writeElement(writer, "properties", ()->{
-						List<MavenProfile.Property> properties = profileBuilder.getPropertiesBuilder().getProperties();
-						for(MavenProfile.Property property : properties){
-							writeSingleElement(writer, property.getName(), property.getValue());
-						}
-					});
-					writeElement(writer, "activation", ()->{
-						boolean activeByDefault = profileBuilder.activeByDefault();
-						writeSingleElement(writer, "activeByDefault", ""+activeByDefault);
-					});
-				});
-			}
+            profiles.forEach((mavenProfile)->{
+                String id = mavenProfile.getId();
+                boolean isActiveByDefault = mavenProfile.isActiveByDefault();
+                List<MavenProfile.Property> properties = mavenProfile.getProperties();
+                writeElement(writer, "profile", ()->{
+                    writeSingleElement(writer, "id", id);
+                    writeElement(writer, "properties", ()->{
+                        properties.forEach((property)->{
+                            writeSingleElement(writer, property.getName(), property.getValue());
+                        });
+                    });
+                    writeElement(writer, "activation", ()->{
+                        writeSingleElement(writer, "activeByDefault", ""+isActiveByDefault);
+                    });
+                });
+            });
 		});
 	}
 

@@ -16,9 +16,7 @@
 
 package io.spring.initializr.generator.spring.configuration;
 
-import io.spring.initializr.generator.buildsystem.Build;
 import io.spring.initializr.generator.project.contributor.ProjectContributor;
-import io.spring.initializr.metadata.InitializrMetadata;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.util.FileCopyUtils;

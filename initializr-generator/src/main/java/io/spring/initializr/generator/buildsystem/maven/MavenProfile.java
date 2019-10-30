@@ -10,12 +10,33 @@ import java.util.List;
 import java.util.function.Consumer;
 
 /**
- * //TODO 功能描述
+ * a profile of a {@link MavenBuild}.
  *
- * @author xujs@mamcharge.com
- * @date 2019/10/29 19:20
+ * @author JoshuaXu
  **/
 public class MavenProfile {
+
+    private String id;
+    private boolean activeByDefault;
+    private List<Property> properties;
+
+    public MavenProfile(MavenProfile.Builder builder){
+        this.id = builder.id;
+        this.activeByDefault = builder.activeByDefault;
+        this.properties = builder.getPropertiesBuilder().getProperties();
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public boolean isActiveByDefault() {
+        return activeByDefault;
+    }
+
+    public List<Property> getProperties() {
+        return properties;
+    }
 
     public static class Builder{
 
@@ -26,6 +47,10 @@ public class MavenProfile {
         public Builder(String id, boolean activateByDefault){
             this.id = id;
             this.activeByDefault = activateByDefault;
+        }
+
+        public MavenProfile build(){
+            return new MavenProfile(this);
         }
 
         public Builder cofiguration(Consumer<PropertiesBuilder> propertiesBuilder){
