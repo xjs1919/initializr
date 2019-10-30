@@ -5,39 +5,31 @@
  
 package io.spring.initializr.generator.buildsystem.maven;
 
-
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
 
 public class MavenProfileContainer {
 
-    private final Map<String, MavenProfile> profiles = new LinkedHashMap<>();
+    private final Map<String, MavenProfile.Builder> profiles = new LinkedHashMap<>();
 
-    public MavenProfileContainer(){
-
-        MavenProfile.Property property = null;
-
-        property = new MavenProfile.Property("package.environment","dev");
-        profiles.put("开发环境", new MavenProfile.Builder().property(property).activeByDefault(true).build());
-
-        property = new MavenProfile.Property("package.environment","test");
-        profiles.put("测试环境", new MavenProfile.Builder().property(property).activeByDefault(false).build());
-
-        property = new MavenProfile.Property("package.environment","pre");
-        profiles.put("预发环境", new MavenProfile.Builder().property(property).activeByDefault(false).build());
-
-        property = new MavenProfile.Property("package.environment","pro");
-        profiles.put("生产环境", new MavenProfile.Builder().property(property).activeByDefault(false).build());
+    public Map<String, MavenProfile.Builder> getProfiles(){
+        return profiles;
     }
 
-    public void add(String id, MavenProfile profile) {
-        profiles.put(id, profile);
+    public void add(String id, boolean activateByDefault, Consumer<MavenProfile.Builder> profileBuilder){
+        profileBuilder.accept(createProfileBuilder(id, activateByDefault));
     }
 
-    public Map<String, MavenProfile> getProfiles(){
-        return this.profiles;
+    private MavenProfile.Builder createProfileBuilder(String id, boolean activateByDefault){
+        MavenProfile.Builder profileBuilder =  this.profiles.get(id);
+        if(profileBuilder == null){
+            MavenProfile.Builder builder = new MavenProfile.Builder(id, activateByDefault);
+            this.profiles.put(id, builder);
+            return builder;
+        }else{
+            return profileBuilder;
+        }
     }
 
 }

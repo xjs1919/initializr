@@ -229,25 +229,25 @@ public class MavenBuildWriter {
 
 	private void writeProfiles(IndentingWriter writer,MavenBuild build){
 		MavenProfileContainer profilesContainer = build.profiles();
-		Map<String, MavenProfile> profiles = profilesContainer.getProfiles();
+		Map<String, MavenProfile.Builder> profiles = profilesContainer.getProfiles();
 		if(profiles.isEmpty()){
 			return;
 		}
 		writer.println();
 		writeElement(writer, "profiles",()->{
-			for(Map.Entry<String, MavenProfile> entry : profiles.entrySet()){
+			for(Map.Entry<String, MavenProfile.Builder> entry : profiles.entrySet()){
 			    String id = entry.getKey();
-				MavenProfile profile = entry.getValue();
+                MavenProfile.Builder profileBuilder = entry.getValue();
 				writeElement(writer, "profile", ()->{
 					writeSingleElement(writer, "id", id);
 					writeElement(writer, "properties", ()->{
-						List<MavenProfile.Property>  properties = profile.getProperties();
+						List<MavenProfile.Property> properties = profileBuilder.getPropertiesBuilder().getProperties();
 						for(MavenProfile.Property property : properties){
 							writeSingleElement(writer, property.getName(), property.getValue());
 						}
 					});
 					writeElement(writer, "activation", ()->{
-						boolean activeByDefault = profile.isActiveByDefault();
+						boolean activeByDefault = profileBuilder.activeByDefault();
 						writeSingleElement(writer, "activeByDefault", ""+activeByDefault);
 					});
 				});

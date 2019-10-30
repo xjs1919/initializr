@@ -7,6 +7,7 @@ package io.spring.initializr.generator.buildsystem.maven;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 /**
  * //TODO 功能描述
@@ -15,58 +16,51 @@ import java.util.List;
  * @date 2019/10/29 19:20
  **/
 public class MavenProfile {
-    private List<Property> properties;
-    private boolean activeByDefault;
 
-    public MavenProfile(Builder builder){
-        this.properties = builder.properties;
-        this.activeByDefault = builder.activeByDefault;
-    }
-
-    public MavenProfile(List<Property> properties, boolean activeByDefault) {
-        this.properties = properties;
-        this.activeByDefault = activeByDefault;
-    }
     public static class Builder{
-        private List<Property> properties;
+
+        private String id;
         private boolean activeByDefault;
-        public Builder property(Property property){
-            if(properties == null){
-                properties = new ArrayList<Property>();
+        private PropertiesBuilder propertiesBuilder;
+
+        public Builder(String id, boolean activateByDefault){
+            this.id = id;
+            this.activeByDefault = activateByDefault;
+        }
+
+        public Builder cofiguration(Consumer<PropertiesBuilder> propertiesBuilder){
+            if(this.propertiesBuilder == null){
+                this.propertiesBuilder = new PropertiesBuilder();
             }
-            properties.add(property);
+            propertiesBuilder.accept(this.propertiesBuilder);
             return this;
         }
-        public Builder activeByDefault(boolean activeByDefault){
-            this.activeByDefault = activeByDefault;
-            return this;
+
+        public PropertiesBuilder getPropertiesBuilder(){
+            return this.propertiesBuilder;
         }
-        public MavenProfile build(){
-            return new MavenProfile(this.properties, this.activeByDefault);
+
+        public boolean activeByDefault(){
+            return this.activeByDefault;
         }
-    }
 
-    public List<Property> getProperties() {
-        return properties;
-    }
-
-    public void setProperties(List<Property> properties) {
-        this.properties = properties;
-    }
-
-    public boolean isActiveByDefault() {
-        return activeByDefault;
-    }
-
-    public void setActiveByDefault(boolean activeByDefault) {
-        this.activeByDefault = activeByDefault;
+        public static class PropertiesBuilder{
+            private List<Property> properties;
+            public void add(String propName, String propValue) {
+                if(this.properties == null){
+                    this.properties = new ArrayList<>();
+                }
+                this.properties.add(new Property(propName,propValue));
+            }
+            public List<Property> getProperties(){
+                return this.properties;
+            }
+        }
     }
 
     public static class Property{
         private String name;
         private String value;
-        public Property() {
-        }
         public Property(String name, String value) {
             this.name = name;
             this.value = value;

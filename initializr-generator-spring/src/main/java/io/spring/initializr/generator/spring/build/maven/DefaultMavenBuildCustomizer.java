@@ -19,6 +19,7 @@ package io.spring.initializr.generator.spring.build.maven;
 import io.spring.initializr.generator.buildsystem.BillOfMaterials;
 import io.spring.initializr.generator.buildsystem.DependencyScope;
 import io.spring.initializr.generator.buildsystem.maven.MavenBuild;
+import io.spring.initializr.generator.buildsystem.maven.MavenProfile;
 import io.spring.initializr.generator.project.ProjectDescription;
 import io.spring.initializr.generator.spring.build.BuildCustomizer;
 import io.spring.initializr.generator.version.VersionProperty;
@@ -74,13 +75,33 @@ public class DefaultMavenBuildCustomizer implements BuildCustomizer<MavenBuild> 
                 builder.add("useDefaultDelimiters", "true");
             });
         });
+        //profiles
+        build.profiles().add("开发环境", true, (profileBuilder)->{
+            profileBuilder.cofiguration((propertiesBuilder)->{
+                propertiesBuilder.add("package.environment","dev");
+            });
+		});
+        build.profiles().add("测试环境", false, (profileBuilder)->{
+            profileBuilder.cofiguration((propertysBuilder)->{
+                propertysBuilder.add("package.environment","test");
+            });
+        });
+        build.profiles().add("预发环境", false, (profileBuilder)->{
+            profileBuilder.cofiguration((propertysBuilder)->{
+                propertysBuilder.add("package.environment","pre");
+            });
+        });
+        build.profiles().add("生产环境", false, (profileBuilder)->{
+            profileBuilder.cofiguration((propertysBuilder)->{
+                propertysBuilder.add("package.environment","pro");
+            });
+        });
         //resource
 		build.resources().add("src/main/resources", (builder)->{
 			builder.includes("**/*").filtering(true);
 		});
 		//
 		build.dependencies().add("actuator","org.springframework.boot", "spring-boot-starter-actuator", DependencyScope.COMPILE);
-
 		Maven maven = this.metadata.getConfiguration().getEnv().getMaven();
 		String springBootVersion = this.description.getPlatformVersion().toString();
 		ParentPom parentPom = maven.resolveParentPom(springBootVersion);
